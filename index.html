@@ -1324,10 +1324,10 @@
       const getLose = (id, fallback) => (byId[id] && byId[id].done) ? byId[id].loserName : fallback;
 
       matches.forEach(m => {
-        if (m.mid === "T-QF1") m.awayName = getWin("T-S1", m.awayName);
-        if (m.mid === "T-QF2") m.awayName = getWin("T-S2", m.awayName);
-        if (m.mid === "T-QF3") m.awayName = getWin("T-S3", m.awayName);
-        if (m.mid === "T-QF4") m.awayName = getWin("T-S4", m.awayName);
+        if (m.mid === "T-QF1") m.awayName = getWin("T-S2", m.awayName);
+        if (m.mid === "T-QF2") m.awayName = getWin("T-S1", m.awayName);
+        if (m.mid === "T-QF3") m.awayName = getWin("T-S4", m.awayName);
+        if (m.mid === "T-QF4") m.awayName = getWin("T-S3", m.awayName);
 
         if (m.mid === "T-SL1") { m.homeName = getLose("T-S1", m.homeName); m.awayName = getLose("T-S2", m.awayName); }
         if (m.mid === "T-SL2") { m.homeName = getLose("T-S3", m.homeName); m.awayName = getLose("T-S4", m.awayName); }
@@ -1912,11 +1912,11 @@
       const sf1 = byId["T-SF1"], sf2 = byId["T-SF2"];
       const fin = byId["T-FIN"], third = byId["T-3RD"];
 
-      // Y座標配置（上から 富士山 / 鷹山 / 茄子山 / 扇山）
-      // 富士山: Seed(y=24), S1(y=72) -> QF1(y=46)
-      // 鷹山:   Seed(y=164), S2(y=212) -> QF2(y=186)
-      // 茄子山: Seed(y=324), S3(y=372) -> QF3(y=346)
-      // 扇山:   Seed(y=464), S4(y=512) -> QF4(y=486)
+      // Y座標配置（上から 左山① / 左山② / 右山① / 右山②：第5稿クロス配置）
+      // 左山①: 富士1位Seed(y=24), サバ②(y=72) -> QF1(y=46)
+      // 左山②: 鷹1位Seed(y=164), サバ①(y=212) -> QF2(y=186)
+      // 右山①: 茄子1位Seed(y=324), サバ④(y=372) -> QF3(y=346)
+      // 右山②: 扇1位Seed(y=464), サバ③(y=512) -> QF4(y=486)
       // SF1(y=116), SF2(y=416) -> FIN(y=266), 3RD(y=460)
       const svg = `
         <svg viewBox="0 0 865 595" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans JP',sans-serif;">
@@ -1950,18 +1950,18 @@
           <path d="M 630 144 L 652 144 L 652 286 L 675 286" fill="none" stroke="#B91C1C" stroke-width="2.5"/>
           <path d="M 630 444 L 652 444 L 652 302 L 675 302" fill="none" stroke="#B91C1C" stroke-width="2.5"/>
 
-          <!-- ノード描画：列1 -->
+          <!-- ノード描画：列1（第5稿クロス配置：サバ②→QF1、サバ①→QF2、サバ④→QF3、サバ③→QF4） -->
           ${drawSeedBadge(14, 24, "富士1位シード", qf1 ? qf1.homeName : "富士1位")}
-          ${drawMatchNode(14, 72, "サバイバル①", s1, "#334155")}
+          ${drawMatchNode(14, 72, "サバイバル②", s2, "#334155")}
 
           ${drawSeedBadge(14, 164, "鷹1位シード", qf2 ? qf2.homeName : "鷹1位")}
-          ${drawMatchNode(14, 212, "サバイバル②", s2, "#334155")}
+          ${drawMatchNode(14, 212, "サバイバル①", s1, "#334155")}
 
           ${drawSeedBadge(14, 324, "茄子1位シード", qf3 ? qf3.homeName : "茄子1位")}
-          ${drawMatchNode(14, 372, "サバイバル③", s3, "#334155")}
+          ${drawMatchNode(14, 372, "サバイバル④", s4, "#334155")}
 
           ${drawSeedBadge(14, 464, "扇1位シード", qf4 ? qf4.homeName : "扇1位")}
-          ${drawMatchNode(14, 512, "サバイバル④", s4, "#334155")}
+          ${drawMatchNode(14, 512, "サバイバル③", s3, "#334155")}
 
           <!-- ノード描画：列2（準々決勝） -->
           ${drawMatchNode(235, 46, "準々決勝①", qf1, "#1E293B")}
